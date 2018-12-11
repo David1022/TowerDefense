@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,11 +8,15 @@ public class DefenseController : MonoBehaviour
 
     public Transform canon;
     public Rigidbody2D bullet;
+    public Rigidbody2D bulletInstance;
+    private const float INCREMENT_ANGLE = 5f;
+    private const int FIX_ANGLE = 90;   //Fixes initial angle of canon view
+    public const int VELOCITY_SCALE = 1;
 
     // Use this for initialization
     void Start()
     {
-        transform.Rotate(0, 0, -90);
+        transform.Rotate(0, 0, 135);
     }
 
     // Update is called once per frame
@@ -35,20 +40,28 @@ public class DefenseController : MonoBehaviour
     void RotateLeft()
     {
         float currentRotation = transform.rotation.z;
-        currentRotation += 5;
+        currentRotation += INCREMENT_ANGLE;
         transform.Rotate(0, 0, currentRotation);
     }
 
     void RotateRight()
     {
         float currentRotation = transform.rotation.z;
-        currentRotation -= 5;
+        currentRotation -= INCREMENT_ANGLE;
         transform.Rotate(0, 0, currentRotation);
     }
 
     void shoot()
     {
-        Rigidbody2D bulletInstance = Instantiate(bullet, transform.position, transform.rotation) as Rigidbody2D;
-        bulletInstance.velocity = new Vector2(transform.rotation.z, transform.rotation.z) * -2;
+        bulletInstance = Instantiate(bullet, transform.position, transform.rotation) as Rigidbody2D;
+        bulletInstance.velocity = (AngleToVector(transform.eulerAngles.z + FIX_ANGLE) * VELOCITY_SCALE);
     }
+
+    private Vector2 AngleToVector(float angle) {
+        double rad = (angle * 2 * Math.PI) / 360; // Converts angle from degrees to radians
+        Vector2 vector = new Vector2((float)Math.Cos(rad), (float)Math.Sin(rad));
+
+        return vector;
+    }
+
 }

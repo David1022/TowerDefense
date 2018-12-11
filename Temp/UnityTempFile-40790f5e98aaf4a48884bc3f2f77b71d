@@ -191,6 +191,8 @@
 'Assets/sci.cs'
 'Assets/Scripts/CameraFollower.cs'
 'Assets/Scripts/DefenseController.cs'
+'Assets/Scripts/EnemyController.cs'
+'Assets/Scripts/EnemyController1.cs'
 'Assets/Scripts/ExitGame.cs'
 'Assets/Scripts/GameManager.cs'
 'Assets/Scripts/MenuScreen.cs'

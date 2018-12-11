@@ -20,11 +20,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4616999297598626}
   - component: {fileID: 212027158098215552}
-  - component: {fileID: 50435210170855436}
   - component: {fileID: 58457181541564280}
+  - component: {fileID: 50212701537335388}
+  - component: {fileID: 114540464753212570}
   m_Layer: 0
   m_Name: Bullet
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36,31 +37,31 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1244803988657688}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.593, y: 3.7418842, z: 10}
+  m_LocalPosition: {x: -5.2762547, y: 2.8661666, z: 10}
   m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &50435210170855436
+--- !u!50 &50212701537335388
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1244803988657688}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.0001
+  m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0
+  m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!58 &58457181541564280
 CircleCollider2D:
@@ -77,6 +78,17 @@ CircleCollider2D:
   m_Offset: {x: -0.003657639, y: 0.0054863095}
   serializedVersion: 2
   m_Radius: 0.063540936
+--- !u!114 &114540464753212570
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1244803988657688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f67ca65fbfd64bed84d18eaef92574f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212027158098215552
 SpriteRenderer:
   m_ObjectHideFlags: 1

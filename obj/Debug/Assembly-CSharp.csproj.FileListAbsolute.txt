@@ -248,4 +248,3 @@
 /Users/davidmendano/Unity/TowerDefense/obj/Debug/Assembly-CSharp.csproj.CopyComplete
 /Users/davidmendano/Unity/TowerDefense/obj/Debug/Assembly-CSharp.dll
 /Users/davidmendano/Unity/TowerDefense/obj/Debug/Assembly-CSharp.pdb
-/Users/davidmendano/Unity/TowerDefense/obj/Debug/Assembly-CSharp.csprojAssemblyReference.cache

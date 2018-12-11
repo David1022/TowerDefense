@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 61314509612926894}
   m_Layer: 0
   m_Name: Tower
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -289,6 +289,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canon: {fileID: 4661410414080642}
   bullet: {fileID: 50435210170855436, guid: 8d8b86191489d42e094ae2fb75cb76c3, type: 2}
+  bulletInstance: {fileID: 0}
 --- !u!212 &212225500572846498
 SpriteRenderer:
   m_ObjectHideFlags: 1
