@@ -152,12 +152,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114579887978405034, guid: 64495164471464498826abde1415d080,
-        type: 2}
-      propertyPath: bullet
-      value: 
-      objectReference: {fileID: 50435210170855436, guid: 8d8b86191489d42e094ae2fb75cb76c3,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64495164471464498826abde1415d080, type: 2}
   m_IsPrefabAsset: 0
@@ -574,41 +568,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tower: {fileID: 601507032}
---- !u!1 &558095583 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1253162338948722, guid: aef697677f0e34b89a95d228d5a26543,
-    type: 2}
-  m_PrefabInternal: {fileID: 1918436875}
 --- !u!4 &558095584 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4941083021887450, guid: aef697677f0e34b89a95d228d5a26543,
     type: 2}
   m_PrefabInternal: {fileID: 1918436875}
---- !u!61 &558095585
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 558095583}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.006886989, y: -0.000000059604645}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.306714, y: 0.3113054}
-  m_EdgeRadius: 0
 --- !u!4 &601507032 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4661410414080642, guid: 64495164471464498826abde1415d080,
