@@ -5,23 +5,27 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
 
-    // Use this for initialization
-    void Start()
-    {
+    private const float TANK_VELOCITY = 0.1f;
 
+    Rigidbody2D rigidbody;
+
+    private void Start()
+    {
+        rigidbody = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-
+        if (GameManager.instance.turn == GameManager.Turn.ENEMY) {
+            PlayTurn();
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Bullet")
         {
-            DestroyEnemy(collision);
+            DestroyBullet(collision);
         }
     }
 
@@ -30,10 +34,24 @@ public class EnemyController : MonoBehaviour
         Destroy(collision.gameObject);
     }
 
-    void DestroyEnemy(Collider2D collision)
+    void SubstractLifePoints() {
+        Debug.Log("Substract");
+    }
+
+    public void PlayTurn() {
+        GameObject tower = GameObject.FindWithTag("Tower");
+        transform.Rotate(0, 0, getRotationAngle());
+        rigidbody.velocity = (new Vector2(tower.transform.position.x, tower.transform.position.y) - rigidbody.position) * TANK_VELOCITY;
+        Invoke("ChangeTurn", 2);
+    }
+
+    float getRotationAngle() {
+        return -45f;
+    }
+
+    void ChangeTurn()
     {
-        DestroyBullet(collision);
-        Debug.Log("Enemy touched");
+        GameManager.instance.ChangeTurn();
     }
 
 }

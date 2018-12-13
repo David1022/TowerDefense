@@ -9,31 +9,37 @@ public class DefenseController : MonoBehaviour
     public Transform canon;
     public Rigidbody2D bullet;
     public Rigidbody2D bulletInstance;
-    private const float INCREMENT_ANGLE = 5f;
+    private const float INCREMENT_ANGLE = 3f;
     private const int FIX_ANGLE = 90;   //Fixes initial angle of canon view
-    public const int VELOCITY_SCALE = 1;
+    public const int VELOCITY_SCALE = 7;
 
+    private bool canMove;
+    
     // Use this for initialization
     void Start()
     {
         transform.Rotate(0, 0, 135);
+        canMove = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (GameManager.instance.turn == GameManager.Turn.PLAYER && canMove)
         {
-            RotateLeft();
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                RotateLeft();
 
-        }
-        else if (Input.GetKey(KeyCode.RightArrow))
-        {
-            RotateRight();
-        }
-        else if (Input.GetKeyDown(KeyCode.Space))
-        {
-            shoot();
+            }
+            else if (Input.GetKey(KeyCode.RightArrow))
+            {
+                RotateRight();
+            }
+            else if (Input.GetKeyDown(KeyCode.Space))
+            {
+                shoot();
+            }
         }
     }
 
@@ -53,8 +59,10 @@ public class DefenseController : MonoBehaviour
 
     void shoot()
     {
+        canMove = false;
         bulletInstance = Instantiate(bullet, transform.position, transform.rotation) as Rigidbody2D;
-        bulletInstance.velocity = (AngleToVector(transform.eulerAngles.z + FIX_ANGLE) * VELOCITY_SCALE);
+        bulletInstance.velocity = (AngleToVector(transform.eulerAngles.z + FIX_ANGLE)) * VELOCITY_SCALE;
+        GameManager.instance.ChangeTurn();
     }
 
     private Vector2 AngleToVector(float angle) {
@@ -63,5 +71,4 @@ public class DefenseController : MonoBehaviour
 
         return vector;
     }
-
 }
