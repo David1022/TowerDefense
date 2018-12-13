@@ -14,14 +14,20 @@ public class BulletController : MonoBehaviour {
         
     }
 
+    private void OnDestroy()
+    {
+        GameManager.instance.ChangeTurn();
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Enemy")
+        if (collision.tag == "EnemyDamage")
         {
+            Invoke("Destroybullet", 0.2f);
             DestroyEnemy(collision);
         } 
     }
-
+    
     void DestroyEnemy(Collider2D collision)
     {
         //DestroyBullet(collision);

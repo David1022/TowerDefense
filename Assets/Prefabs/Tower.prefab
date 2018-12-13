@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 58330817651412770}
   m_Layer: 0
   m_Name: MediumDamage
-  m_TagString: TowerMediumDamage
+  m_TagString: TowerDamage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 58488384140976520}
   m_Layer: 0
   m_Name: LowDamage
-  m_TagString: TowerLowDamage
+  m_TagString: TowerDamage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 58182411119368448}
   m_Layer: 0
   m_Name: HighDamage
-  m_TagString: TowerHighDamage
+  m_TagString: TowerDamage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -425,6 +425,7 @@ MonoBehaviour:
   canon: {fileID: 4661410414080642}
   bullet: {fileID: 50212701537335388, guid: 8d8b86191489d42e094ae2fb75cb76c3, type: 2}
   bulletInstance: {fileID: 0}
+  life: 0
 --- !u!212 &212225500572846498
 SpriteRenderer:
   m_ObjectHideFlags: 1

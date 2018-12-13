@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class DefenseController : MonoBehaviour
 {
-
     public Transform canon;
     public Rigidbody2D bullet;
     public Rigidbody2D bulletInstance;
@@ -43,6 +42,21 @@ public class DefenseController : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Bullet")
+        {
+            StartCoroutine(DestroyBullet(collision));
+            GameManager.instance.SubstractLifePoints();
+        }
+    }
+
+    IEnumerator DestroyBullet(Collider2D collision)
+    {
+        yield return new WaitForSeconds(0.1f);
+        Destroy(collision.gameObject);
+    }
+
     void RotateLeft()
     {
         float currentRotation = transform.rotation.z;
@@ -62,7 +76,6 @@ public class DefenseController : MonoBehaviour
         canMove = false;
         bulletInstance = Instantiate(bullet, transform.position, transform.rotation) as Rigidbody2D;
         bulletInstance.velocity = (AngleToVector(transform.eulerAngles.z + FIX_ANGLE)) * VELOCITY_SCALE;
-        GameManager.instance.ChangeTurn();
     }
 
     private Vector2 AngleToVector(float angle) {
@@ -70,5 +83,9 @@ public class DefenseController : MonoBehaviour
         Vector2 vector = new Vector2((float)Math.Cos(rad), (float)Math.Sin(rad));
 
         return vector;
+    }
+
+    public void StartTurn() {
+        canMove = true;
     }
 }

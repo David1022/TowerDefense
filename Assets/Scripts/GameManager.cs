@@ -1,11 +1,23 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
+    int TOWER_TIME_TURN = 20;
+    int ENEMY_TIME_TURN = 5;
+    int TOWER_LIFE = 100;
+    int ENEMY_LIFE = 100;
+    int TOWER_DAMAGE = 7;
+    int ENEMY_DAMAGE = 10;
+
     public static GameManager instance;
+    GameObject tower;
+    DefenseController towerController;
+    GameObject enemy;
+    EnemyController enemyController;
 
     public Text enemyTurnText;
     public Text enemyTimeText;
@@ -16,13 +28,13 @@ public class GameManager : MonoBehaviour {
     public Text countDownTurnText;
     public Text countDownTimeText;
 
-    public int countDown;
-
-    public const int ENEMY_DEATH_SCORE = 100;
-    public const int LEVEL_FINAL_SCORE = 1000;
+    public int changingTurnCountDown;
 
     public Turn turn;
-    
+    int turnTime;
+    int towerLifePoints;
+    int enemyLifePoints;
+
     public enum Turn {
         PAUSED,
         PLAYER,
@@ -37,30 +49,53 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        turn = Turn.PLAYER;
-
-        InitializeTexts();
+        Initialize();
+        SetInitialTurn();
     }
 
-    private void InitializeTexts()
+    private void Initialize()
     {
+        tower = GameObject.FindWithTag("Tower");
+        towerController = tower.GetComponent<DefenseController>();
+        enemy = GameObject.FindWithTag("Enemy");
+        enemyController = enemy.GetComponent<EnemyController>();
+
+        enemyLifePoints = ENEMY_LIFE;
+        towerLifePoints = TOWER_LIFE;
+
         enemyTurnText.color = Color.red;
         playerTurnText.color = Color.green;
-
         enemyTurnText.text = "Turn: Computer";
-        enemyTimeText.text = "Time: 20s";
-        enemyLifeText.text = "Life: 100";
         playerTurnText.text = "Turn: Player";
-        playerTimeText.text = "Time: 20s";
-        playerLifeText.text = "Life: 100";
 
         countDownTurnText.gameObject.SetActive(false);
         countDownTimeText.gameObject.SetActive(false);
     }
 
+    private void SetInitialTurn()
+    {
+        turn = Turn.PLAYER;
+        turnTime = TOWER_TIME_TURN;
+        towerController.StartTurn();
+        InvokeRepeating("TurnCountDown", 1f, 1f);
+    }
+
     private void Update()
     {
+        if (turn == Turn.PLAYER) {
+            enemyTimeText.text = "Time: " + TOWER_TIME_TURN + "s";
+            playerTimeText.text = "Time: " + turnTime + "s";
+        }
+        else if (turn == Turn.ENEMY) {
+            enemyTimeText.text = "Time: " + turnTime + "s";
+            playerTimeText.text = "Time: " + TOWER_TIME_TURN + "s";
+        }
+        enemyLifeText.text = "Life: " + enemyLifePoints;
+        playerLifeText.text = "Life: " + towerLifePoints;
 
+        if (turnTime < 0) {
+            ChangeTurn();
+        }
     }
 
     public void ChangeTurn()
@@ -80,19 +115,17 @@ public class GameManager : MonoBehaviour {
 
         turn = Turn.PAUSED;
 
-        Invoke("StartCountDown", 2);
+        StartCoroutine("ChangingTurnCountDown");
     }
 
-    void StartCountDown() {
-        StartCoroutine("CountDown");
-    }
+    IEnumerator ChangingTurnCountDown() {
+        yield return new WaitForSeconds(0.5f);
 
-    IEnumerator CountDown() {
         countDownTurnText.gameObject.SetActive(true);
         countDownTimeText.gameObject.SetActive(true);
 
-        for (countDown = 3; countDown > 0; countDown--) {
-            countDownTimeText.text = countDown.ToString();
+        for (changingTurnCountDown = 3; changingTurnCountDown > 0; changingTurnCountDown--) {
+            countDownTimeText.text = changingTurnCountDown.ToString();
             yield return new WaitForSeconds(1f);
         }
         
@@ -100,5 +133,32 @@ public class GameManager : MonoBehaviour {
 
         countDownTurnText.gameObject.SetActive(false);
         countDownTimeText.gameObject.SetActive(false);
+
+        StartNextTurn();
     }
+
+    private void StartNextTurn() {
+        if (turn == Turn.PLAYER) {
+            towerController.StartTurn();
+            turnTime = TOWER_TIME_TURN;
+        } else if (turn == Turn.ENEMY) {
+            enemyController.StartTurn();
+            turnTime = ENEMY_TIME_TURN;
+        }
+    }
+
+    void TurnCountDown() {
+        turnTime--;
+    }
+
+    public void SubstractLifePoints()
+    {
+        if (turn == Turn.PLAYER) {
+            enemyLifePoints -= TOWER_DAMAGE;
+        } else if (turn == Turn.ENEMY) {
+            towerLifePoints -= ENEMY_DAMAGE;
+        }
+    }
+
+
 }

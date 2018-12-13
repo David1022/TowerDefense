@@ -654,7 +654,7 @@ MonoBehaviour:
   playerLifeText: {fileID: 1275846673}
   countDownTurnText: {fileID: 1018117084}
   countDownTimeText: {fileID: 1159629951}
-  countDown: 0
+  changingTurnCountDown: 0
   turn: 0
 --- !u!20 &519420031
 Camera:
@@ -1866,6 +1866,10 @@ Prefab:
     - target: {fileID: 4941083021887450, guid: aef697677f0e34b89a95d228d5a26543, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1253162338948722, guid: aef697677f0e34b89a95d228d5a26543, type: 2}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aef697677f0e34b89a95d228d5a26543, type: 2}

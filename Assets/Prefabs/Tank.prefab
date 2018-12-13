@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 58710986615439288}
   m_Layer: 0
   m_Name: LowDamage
-  m_TagString: EnemyLowDamage
+  m_TagString: EnemyDamage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 58695240473637830}
   m_Layer: 0
   m_Name: HighDamage
-  m_TagString: EnemyHighDamage
+  m_TagString: EnemyDamage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 58951886308553530}
   m_Layer: 0
   m_Name: MediumDamage
-  m_TagString: EnemyMediumDamage
+  m_TagString: EnemyDamage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -293,6 +293,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8d02eacfc1c04201bac4ec34d19a770, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  life: 0
+  bullet: {fileID: 0}
+  bulletInstance: {fileID: 0}
 --- !u!212 &212393205663927950
 SpriteRenderer:
   m_ObjectHideFlags: 1
