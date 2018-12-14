@@ -7,7 +7,7 @@ public class DefenseController : MonoBehaviour
 {
     public Transform canon;
     public Rigidbody2D bullet;
-    public Rigidbody2D bulletInstance;
+    private Rigidbody2D bulletInstance;
     private const float INCREMENT_ANGLE = 3f;
     private const int FIX_ANGLE = 90;   //Fixes initial angle of canon view
     public const int VELOCITY_SCALE = 7;
@@ -44,7 +44,7 @@ public class DefenseController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Bullet")
+        if (collision.tag == "TankBullet")
         {
             StartCoroutine(DestroyBullet(collision));
             GameManager.instance.SubstractLifePoints();

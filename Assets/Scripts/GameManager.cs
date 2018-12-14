@@ -10,8 +10,8 @@ public class GameManager : MonoBehaviour {
     int ENEMY_TIME_TURN = 5;
     int TOWER_LIFE = 100;
     int ENEMY_LIFE = 100;
-    int TOWER_DAMAGE = 7;
-    int ENEMY_DAMAGE = 10;
+    int TOWER_DAMAGE = 15;
+    int ENEMY_DAMAGE = 7;
 
     public static GameManager instance;
     GameObject tower;
@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour {
     int enemyLifePoints;
 
     public enum Turn {
-        PAUSED,
         PLAYER,
         ENEMY
     }
@@ -112,14 +111,12 @@ public class GameManager : MonoBehaviour {
             playerTurnText.color = Color.red;
             countDownTurnText.text = "Computer";
         }
-
-        turn = Turn.PAUSED;
-
+        
         StartCoroutine("ChangingTurnCountDown");
     }
 
     IEnumerator ChangingTurnCountDown() {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
 
         countDownTurnText.gameObject.SetActive(true);
         countDownTimeText.gameObject.SetActive(true);
@@ -159,6 +156,4 @@ public class GameManager : MonoBehaviour {
             towerLifePoints -= ENEMY_DAMAGE;
         }
     }
-
-
 }

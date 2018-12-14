@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    private const float TANK_VELOCITY = 0.1f;
-    public const int VELOCITY_SCALE = 7;
+    private const float ENEMY_VELOCITY = 0.1f;
+    public const int VELOCITY_SCALE = 1;
 
     Rigidbody2D rigidbody;
     public Rigidbody2D bullet;
-    public Rigidbody2D bulletInstance;
+    private Rigidbody2D bulletInstance;
 
     private void Start()
     {
@@ -20,13 +20,13 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         if (GameManager.instance.turn == GameManager.Turn.ENEMY) {
-            PlayTurn();
+            //PlayTurn();
         }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Bullet")
+        if (collision.tag == "TowerBullet")
         {
             StartCoroutine(DestroyBullet(collision));
             GameManager.instance.SubstractLifePoints();
@@ -42,7 +42,8 @@ public class EnemyController : MonoBehaviour
     public void PlayTurn() {
         GameObject tower = GameObject.FindWithTag("Tower");
         transform.Rotate(0, 0, getRotationAngle());
-        rigidbody.velocity = (new Vector2(tower.transform.position.x, tower.transform.position.y) - rigidbody.position) * TANK_VELOCITY;
+        //rigidbody.velocity = (new Vector2(tower.transform.position.x, tower.transform.position.y) - rigidbody.position) * ENEMY_VELOCITY;
+        shoot();
     }
 
     void shoot()
@@ -66,7 +67,7 @@ public class EnemyController : MonoBehaviour
 
     public void StartTurn()
     {
-        GameManager.instance.ChangeTurn();
+        PlayTurn();
     }
 
 }

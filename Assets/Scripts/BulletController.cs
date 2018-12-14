@@ -21,17 +21,9 @@ public class BulletController : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "EnemyDamage")
-        {
-            Invoke("Destroybullet", 0.2f);
-            DestroyEnemy(collision);
-        } 
-    }
-    
-    void DestroyEnemy(Collider2D collision)
-    {
-        //DestroyBullet(collision);
-        Debug.Log("Delete enemy");
+        if (collision.tag == "EnemyDamage" || collision.tag == "TowerDamage") {
+            GameManager.instance.SubstractLifePoints();
+        }
     }
 
 }
