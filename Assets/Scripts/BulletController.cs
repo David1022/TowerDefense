@@ -25,5 +25,4 @@ public class BulletController : MonoBehaviour {
             GameManager.instance.SubstractLifePoints();
         }
     }
-
 }

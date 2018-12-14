@@ -9,8 +9,9 @@ public class EnemyController : MonoBehaviour
     public const int VELOCITY_SCALE = 1;
 
     Rigidbody2D rigidbody;
+    Rigidbody2D bulletInstance;
     public Rigidbody2D bullet;
-    private Rigidbody2D bulletInstance;
+    public ParticleSystem particleSystem;
 
     private void Start()
     {
@@ -28,7 +29,9 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.tag == "TowerBullet")
         {
-            StartCoroutine(DestroyBullet(collision));
+            StartCoroutine("Explode");
+            Destroy(collision.gameObject);
+            //StartCoroutine(DestroyBullet(collision));
             GameManager.instance.SubstractLifePoints();
         }
     }
@@ -68,6 +71,14 @@ public class EnemyController : MonoBehaviour
     public void StartTurn()
     {
         PlayTurn();
+    }
+
+    IEnumerator Explode()
+    {
+        Vector3 pos = transform.position;
+        particleSystem = Instantiate(particleSystem, new Vector3(pos.x, pos.y, 15f), transform.rotation) as ParticleSystem;
+        yield return new WaitForSeconds(0.5f);
+        Destroy(particleSystem);
     }
 
 }

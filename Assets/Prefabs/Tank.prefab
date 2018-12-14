@@ -204,6 +204,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 50433531909922714, guid: 35009abf847cc4fbeaaf24d6db2e0dbf, type: 2}
+  particleSystem: {fileID: 198898417112965902, guid: 531964609ab6d449e874cf6a8504ae47,
+    type: 2}
 --- !u!212 &212393205663927950
 SpriteRenderer:
   m_ObjectHideFlags: 1
