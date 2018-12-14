@@ -5,19 +5,21 @@ using UnityEngine;
 
 public class DefenseController : MonoBehaviour
 {
-    public Transform canon;
-    public Rigidbody2D bullet;
-    private Rigidbody2D bulletInstance;
     private const float INCREMENT_ANGLE = 3f;
     private const int FIX_ANGLE = 90;   //Fixes initial angle of canon view
     public const int VELOCITY_SCALE = 7;
+
+    public Transform canon;
+    public Rigidbody2D bullet;
+    private Rigidbody2D bulletInstance;
+    public ParticleSystem particleSystem;
 
     private bool canMove;
     
     // Use this for initialization
     void Start()
     {
-        transform.Rotate(0, 0, 135);
+        transform.Rotate(0, 0, 180);
         canMove = true;
     }
 
@@ -42,18 +44,23 @@ public class DefenseController : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        CancelInvoke();
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "TankBullet")
         {
-            StartCoroutine(DestroyBullet(collision));
+            StartCoroutine("Explode");
+            DestroyBullet(collision);
             GameManager.instance.SubstractLifePoints();
         }
     }
 
-    IEnumerator DestroyBullet(Collider2D collision)
+    void DestroyBullet(Collider2D collision)
     {
-        yield return new WaitForSeconds(0.1f);
         Destroy(collision.gameObject);
     }
 
@@ -76,6 +83,7 @@ public class DefenseController : MonoBehaviour
         canMove = false;
         bulletInstance = Instantiate(bullet, transform.position, transform.rotation) as Rigidbody2D;
         bulletInstance.velocity = (AngleToVector(transform.eulerAngles.z + FIX_ANGLE)) * VELOCITY_SCALE;
+        GameManager.instance.CancelCountDowns();
     }
 
     private Vector2 AngleToVector(float angle) {
@@ -87,5 +95,13 @@ public class DefenseController : MonoBehaviour
 
     public void StartTurn() {
         canMove = true;
+    }
+
+    IEnumerator Explode()
+    {
+        Vector3 pos = transform.position;
+        particleSystem = Instantiate(particleSystem, new Vector3(pos.x, pos.y, 15f), transform.rotation) as ParticleSystem;
+        yield return new WaitForSeconds(0.5f);
+        Destroy(particleSystem);
     }
 }

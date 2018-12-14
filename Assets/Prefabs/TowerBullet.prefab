@@ -72,7 +72,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.003657639, y: 0.0054863095}
@@ -89,8 +89,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f67ca65fbfd64bed84d18eaef92574f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particleSystem: {fileID: 198898417112965902, guid: 531964609ab6d449e874cf6a8504ae47,
-    type: 2}
 --- !u!212 &212027158098215552
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -249,6 +249,3 @@
 /Users/davidmendano/Unity/TowerDefense/obj/Debug/Assembly-CSharp.dll
 /Users/davidmendano/Unity/TowerDefense/obj/Debug/Assembly-CSharp.pdb
 /Users/davidmendano/Unity/TowerDefense/obj/Debug/Assembly-CSharp.csprojAssemblyReference.cache
-/Users/davidmendano/Unity/TowerDefense/Temp/bin/Debug/Cloo.dll
-/Users/davidmendano/Unity/TowerDefense/Temp/bin/Debug/Fluvio.Runtime.dll
-/Users/davidmendano/Unity/TowerDefense/Temp/bin/Debug/Fluvio.Runtime.xml

@@ -6,7 +6,7 @@ public class GroundController : MonoBehaviour {
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Bullet")
+        if (collision.tag == "TowerBullet" || collision.tag == "TankBullet")
         {
             DestroyBullet(collision);
         }

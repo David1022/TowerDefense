@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -31,7 +32,8 @@ public class GameManager : MonoBehaviour {
     public int changingTurnCountDown;
 
     public Turn turn;
-    int turnTime;
+    int TowerTurnTime;
+    int TankTurnTime;
     int towerLifePoints;
     int enemyLifePoints;
 
@@ -74,44 +76,68 @@ public class GameManager : MonoBehaviour {
     private void SetInitialTurn()
     {
         turn = Turn.PLAYER;
-        turnTime = TOWER_TIME_TURN;
+        TowerTurnTime = TOWER_TIME_TURN;
         towerController.StartTurn();
-        InvokeRepeating("TurnCountDown", 1f, 1f);
+        InvokeRepeating("TowerTurnCountDown", 1f, 1f);
     }
 
     private void Update()
     {
-        if (turn == Turn.PLAYER) {
-            enemyTimeText.text = "Time: " + TOWER_TIME_TURN + "s";
-            playerTimeText.text = "Time: " + turnTime + "s";
+        if (towerLifePoints > 0 && enemyLifePoints > 0)
+        {
+            if (turn == Turn.PLAYER)
+            {
+                if (TowerTurnTime < 0)
+                {
+                    ChangeTurn();
+                }
+                else
+                {
+                    enemyTimeText.text = "Time: " + ENEMY_TIME_TURN + "s";
+                    playerTimeText.text = "Time: " + TowerTurnTime + "s";
+                }
+            }
+            else if (turn == Turn.ENEMY)
+            {
+                if (TankTurnTime < 0)
+                {
+                    ChangeTurn();
+                }
+                else
+                {
+                    enemyTimeText.text = "Time: " + TankTurnTime + "s";
+                    playerTimeText.text = "Time: " + TOWER_TIME_TURN + "s";
+                }
+            }
+            enemyLifeText.text = "Life: " + enemyLifePoints;
+            playerLifeText.text = "Life: " + towerLifePoints;
         }
-        else if (turn == Turn.ENEMY) {
-            enemyTimeText.text = "Time: " + turnTime + "s";
-            playerTimeText.text = "Time: " + TOWER_TIME_TURN + "s";
-        }
-        enemyLifeText.text = "Life: " + enemyLifePoints;
-        playerLifeText.text = "Life: " + towerLifePoints;
+        else {
+            SceneManager.LoadScene("EndScene");
 
-        if (turnTime < 0) {
-            ChangeTurn();
         }
     }
 
     public void ChangeTurn()
     {
+        CancelInvoke();
         if (turn == Turn.ENEMY)
         {
             enemyTurnText.color = Color.red;
             playerTurnText.color = Color.green;
             countDownTurnText.text = "Player";
+            TowerTurnTime = TOWER_TIME_TURN;
+            TankTurnTime = ENEMY_TIME_TURN;
         }
         else if (turn == Turn.PLAYER)
         {
             enemyTurnText.color = Color.green;
             playerTurnText.color = Color.red;
             countDownTurnText.text = "Computer";
+            TankTurnTime = ENEMY_TIME_TURN;
+            TowerTurnTime = TOWER_TIME_TURN;
         }
-        
+
         StartCoroutine("ChangingTurnCountDown");
     }
 
@@ -137,15 +163,24 @@ public class GameManager : MonoBehaviour {
     private void StartNextTurn() {
         if (turn == Turn.PLAYER) {
             towerController.StartTurn();
-            turnTime = TOWER_TIME_TURN;
-        } else if (turn == Turn.ENEMY) {
+            //TowerTurnTime = TOWER_TIME_TURN;
+            InvokeRepeating("TowerTurnCountDown", 1f, 1f);
+        }
+        else if (turn == Turn.ENEMY) {
             enemyController.StartTurn();
-            turnTime = ENEMY_TIME_TURN;
+            //TankTurnTime = ENEMY_TIME_TURN;
+            InvokeRepeating("TankTurnCountDown", 1f, 1f);
         }
     }
 
-    void TurnCountDown() {
-        turnTime--;
+    void TowerTurnCountDown() 
+    {
+        TowerTurnTime--;
+    }
+
+    void TankTurnCountDown()
+    {
+        TankTurnTime--;
     }
 
     public void SubstractLifePoints()
@@ -155,5 +190,9 @@ public class GameManager : MonoBehaviour {
         } else if (turn == Turn.ENEMY) {
             towerLifePoints -= ENEMY_DAMAGE;
         }
+    }
+
+    public void CancelCountDowns(){
+        CancelInvoke();
     }
 }
